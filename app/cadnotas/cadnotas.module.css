@@ -1,0 +1,143 @@
+.main {
+    min-height: calc(100vh - 80px);
+    padding: 60px 20px;
+
+    background: #F7F7F7;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.painel {
+    background: #ffffff;
+
+    border: 1px solid #E2E2E2;
+    border-top: 4px solid #E30613;
+
+    border-radius: 12px;
+
+    padding: 40px;
+
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+}
+
+.status {
+    text-align: center;
+
+    color: #E30613;
+
+    font-weight: 700;
+
+    letter-spacing: 3px;
+
+    margin-bottom: 20px;
+}
+
+.painel h2 {
+    text-align: center;
+
+    color: #2B2B2B;
+
+    font-size: 2.2rem;
+
+    margin-bottom: 40px;
+
+    text-transform: uppercase;
+
+    letter-spacing: 1px;
+}
+
+.form {
+    display: grid;
+    gap: 24px;
+}
+
+.campo {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.campo label {
+    color: #2B2B2B;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.campo input {
+    width: 100%;
+
+    padding: 14px 18px;
+
+    border: 1px solid #D6D6D6;
+
+    border-radius: 8px;
+
+    background: #ffffff;
+
+    color: #2B2B2B;
+
+    font-size: 1rem;
+
+    transition: all 0.25s ease;
+}
+
+.campo input:focus {
+    outline: none;
+
+    border-color: #E30613;
+
+    box-shadow: 0 0 0 3px rgba(227, 6, 19, 0.15);
+}
+
+.campo input::placeholder {
+    color: #9a9a9a;
+}
+
+.botao {
+    margin-top: 15px;
+
+    padding: 16px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    background: #E30613;
+
+    color: white;
+
+    font-size: 1rem;
+
+    font-weight: 700;
+
+    text-transform: uppercase;
+
+    letter-spacing: 1px;
+
+    cursor: pointer;
+
+    transition: all 0.25s ease;
+}
+
+.botao:hover {
+    background: #A80916;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.botao:active {
+    transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+    .painel {
+        padding: 25px;
+    }
+
+    .painel h2 {
+        font-size: 1.8rem;
+    }
+}

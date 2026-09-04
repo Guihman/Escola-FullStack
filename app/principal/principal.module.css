@@ -1,0 +1,217 @@
+.main {
+    min-height: 100vh;
+    color: #2B2B2B;
+    background: #F7F7F7;
+}
+
+/* HERO */
+
+.hero {
+    text-align: center;
+    padding: 90px 30px;
+    background: linear-gradient(180deg, #E30613 0%, #B70510 100%);
+    color: #ffffff;
+}
+
+.status {
+    color: #ffffff;
+    font-weight: 700;
+    letter-spacing: 3px;
+    opacity: 0.85;
+    font-size: 0.85rem;
+}
+
+.hero h2 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    margin-bottom: 20px;
+    color: #ffffff;
+}
+
+.hero h2 span {
+    display: block;
+    color: #ffffff;
+    font-weight: 300;
+}
+
+.hero p {
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.1rem;
+}
+
+.btn {
+    margin-top: 30px;
+    padding: 15px 35px;
+    border: none;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #E30613;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    background: #F2F2F2;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* CARDS */
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+    padding: 50px 40px;
+}
+
+.card {
+    background: #ffffff;
+    border: 1px solid #E2E2E2;
+    border-top: 4px solid #E30613;
+    border-radius: 10px;
+    padding: 25px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    transition: all 0.25s ease;
+}
+
+.card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.card h3 {
+    color: #E30613;
+    margin-bottom: 15px;
+}
+
+.card p {
+    color: #555555;
+}
+
+/* DASHBOARD */
+
+.dashboard {
+    padding: 70px 40px;
+    text-align: center;
+    background: #ffffff;
+}
+
+.dashboard h2 {
+    margin-bottom: 40px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #2B2B2B;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 25px;
+}
+
+.stat {
+    background: #F7F7F7;
+    border: 1px solid #E2E2E2;
+    border-radius: 10px;
+    padding: 30px;
+    transition: all 0.25s ease;
+}
+
+.stat:hover {
+    border-color: #E30613;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+}
+
+.stat h3 {
+    font-size: 2.5rem;
+    color: #E30613;
+    margin-bottom: 10px;
+}
+
+.stat p {
+    color: #555555;
+}
+
+/* TIMELINE */
+
+.timeline {
+    padding: 70px 40px;
+    background: #F7F7F7;
+}
+
+.timeline h2 {
+    text-align: center;
+    margin-bottom: 50px;
+    color: #2B2B2B;
+}
+
+.event {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    max-width: 700px;
+    margin: 20px auto;
+    padding: 20px;
+    border-left: 3px solid #E30613;
+    background: #ffffff;
+    border-radius: 0 10px 10px 0;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.event span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    min-width: 50px;
+    width: 50px;
+    height: 50px;
+
+    border-radius: 50%;
+
+    background: #E30613;
+    color: #ffffff;
+    font-weight: 700;
+}
+
+.event p {
+    margin: 0;
+    color: #2B2B2B;
+}
+
+/* FOOTER */
+
+.footer {
+    text-align: center;
+    padding: 30px;
+    background: #2B2B2B;
+    border-top: 4px solid #E30613;
+    color: #cfcfcf;
+}
+
+/* RESPONSIVIDADE */
+
+@media (max-width: 768px) {
+    .hero {
+        padding: 60px 20px;
+    }
+
+    .cards,
+    .stats {
+        grid-template-columns: 1fr;
+    }
+
+    .dashboard,
+    .timeline {
+        padding: 60px 20px;
+    }
+
+    .event {
+        flex-direction: column;
+        text-align: center;
+    }
+}

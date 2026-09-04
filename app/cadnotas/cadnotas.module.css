@@ -1,7 +1,6 @@
 .main {
     min-height: calc(100vh - 80px);
     padding: 60px 20px;
-
     background: #F7F7F7;
 }
 
@@ -12,40 +11,27 @@
 
 .painel {
     background: #ffffff;
-
     border: 1px solid #E2E2E2;
     border-top: 4px solid #E30613;
-
     border-radius: 12px;
-
     padding: 40px;
-
     box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
 }
 
 .status {
     text-align: center;
-
     color: #E30613;
-
     font-weight: 700;
-
     letter-spacing: 3px;
-
     margin-bottom: 20px;
 }
 
 .painel h2 {
     text-align: center;
-
     color: #2B2B2B;
-
     font-size: 2.2rem;
-
     margin-bottom: 40px;
-
     text-transform: uppercase;
-
     letter-spacing: 1px;
 }
 
@@ -68,27 +54,18 @@
 
 .campo input {
     width: 100%;
-
     padding: 14px 18px;
-
     border: 1px solid #D6D6D6;
-
     border-radius: 8px;
-
     background: #ffffff;
-
     color: #2B2B2B;
-
     font-size: 1rem;
-
     transition: all 0.25s ease;
 }
 
 .campo input:focus {
     outline: none;
-
     border-color: #E30613;
-
     box-shadow: 0 0 0 3px rgba(227, 6, 19, 0.15);
 }
 
@@ -98,27 +75,16 @@
 
 .botao {
     margin-top: 15px;
-
     padding: 16px;
-
     border: none;
-
     border-radius: 8px;
-
     background: #E30613;
-
     color: white;
-
     font-size: 1rem;
-
     font-weight: 700;
-
     text-transform: uppercase;
-
     letter-spacing: 1px;
-
     cursor: pointer;
-
     transition: all 0.25s ease;
 }
 

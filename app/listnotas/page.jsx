@@ -1,9 +1,9 @@
 'use client';
 
 import Header from "../components/header";
-import styles from "./listalunos.module.css";
+import styles from "./listnotas.module.css";
 
-export default function ListAlunos() {
+export default function ListNotas() {
     return (
         <>
             <Header />
@@ -12,20 +12,22 @@ export default function ListAlunos() {
                 <section className={styles.container}>
                     <div className={styles.painel}>
                         <p className={styles.status}>
-                            SISTEMA ONLINE ● REGISTRO ACADÊMICO
+                            SISTEMA ONLINE ● BOLETIM ACADÊMICO
                         </p>
 
-                        <h2>Lista de Alunos</h2>
+                        <h2>Lista de Notas</h2>
 
                         <div className={styles.tabelaWrapper}>
                             <table className={styles.tabela}>
                                 <thead>
                                     <tr>
                                         <th>ID</th>
-                                        <th>Nome</th>
-                                        <th>Idade</th>
-                                        <th>Série</th>
-                                        <th>RA</th>
+                                        <th>Nome do Aluno</th>
+                                        <th>T1</th>
+                                        <th>T2</th>
+                                        <th>N1</th>
+                                        <th>N2</th>
+                                        <th>N3</th>
                                         <th className={styles.colAcoes} colSpan={2}>Ações</th>
                                     </tr>
                                 </thead>
@@ -33,9 +35,11 @@ export default function ListAlunos() {
                                     <tr>
                                         <td>01</td>
                                         <td className={styles.nome}>Guilherme</td>
-                                        <td>18</td>
-                                        <td>3B</td>
-                                        <td>909030</td>
+                                        <td>8.5</td>
+                                        <td>9.0</td>
+                                        <td>7.5</td>
+                                        <td>8.0</td>
+                                        <td>9.5</td>
                                         <td>
                                             <button className={styles.btnEditar}>Editar</button>
                                         </td>

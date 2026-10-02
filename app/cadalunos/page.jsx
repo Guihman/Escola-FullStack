@@ -11,6 +11,30 @@ export default function CadAlunos() {
     const [serie, setSerie] = useState('');
     const [ra, setRa] = useState('');
 
+      async function cadastraAlunos(event){
+    event.preventDefault();
+    const resposta = await fetch("/api/alunos", {
+      method:"POST",
+      headers: {
+        "Content-Type": "application/json",
+        body: JSON.stringify({
+          nome,
+          idade,
+          serie,
+          ra
+        })
+      }
+    })
+    const dados = await resposta.json();
+    alert(dados.mensagem || dados.erro)
+    if(resposta.ok){
+      setNome('');
+      setIdade('');
+      setSerie('')
+      setRa('');
+    }
+  }
+
     return (
         <>
             <Header />
@@ -24,7 +48,7 @@ export default function CadAlunos() {
 
                         <h2>Cadastro de Alunos</h2>
 
-                        <form className={styles.form}>
+                        <form className={styles.form} onSubmit={cadastraAlunos}>
                             <div className={styles.campo}>
                                 <label htmlFor="nome">Nome Completo</label>
                                 <input

@@ -1,57 +1,84 @@
 'use client';
-
+import { useState, useEffect } from "react";
 import Header from "../components/header";
-import styles from "./listnotas.module.css";
+import styles from './listanotas.module.css';
 
 export default function ListNotas() {
+    const [notas, setNotas] = useState([]);
+
+    useEffect(() => {
+        buscarNotas()
+    }, [])//toda vez que a tela for recarregada
+
+    async function buscarNotas() {
+        const resposta = await fetch('/api/notas');
+        const dados = await resposta.json();
+
+        setNotas(dados);
+    }
+
+
     return (
         <>
             <Header />
 
             <main className={styles.main}>
-                <section className={styles.container}>
-                    <div className={styles.painel}>
-                        <p className={styles.status}>
-                            SISTEMA ONLINE ● BOLETIM ACADÊMICO
-                        </p>
 
-                        <h2>Lista de Notas</h2>
+                <section className={styles.tituloArea}>
+                    <h2>Lista de Notas</h2>
 
-                        <div className={styles.tabelaWrapper}>
-                            <table className={styles.tabela}>
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Nome do Aluno</th>
-                                        <th>T1</th>
-                                        <th>T2</th>
-                                        <th>N1</th>
-                                        <th>N2</th>
-                                        <th>N3</th>
-                                        <th className={styles.colAcoes} colSpan={2}>Ações</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>01</td>
-                                        <td className={styles.nome}>Guilherme</td>
-                                        <td>8.5</td>
-                                        <td>9.0</td>
-                                        <td>7.5</td>
-                                        <td>8.0</td>
-                                        <td>9.5</td>
-                                        <td>
-                                            <button className={styles.btnEditar}>Editar</button>
-                                        </td>
-                                        <td>
-                                            <button className={styles.btnDeletar}>Deletar</button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                    <p>
+                        Consulte todas as notas cadastradas no sistema.
+                    </p>
                 </section>
+
+                <section className={styles.tabelaContainer}>
+
+                    <table className={styles.tabela}>
+
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nome</th>
+                                <th>Idade</th>
+                                <th>Série</th>
+                                <th>RA</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {notas ? (notas.map((nota) => (
+                                <tr key={nota.id_aluno}>
+                                    <td>{nota.id_nota}</td>
+                                    <td>{nota.t1}</td>
+                                    <td>{nota.t2}</td>
+                                    <td>{nota.nota1}</td>
+                                    <td>{nota.nota2}</td>
+                                    <td>{nota.nota3}</td>
+
+                                    <td>
+                                        <button className={styles.botaoEditar}>
+                                            Editar
+                                        </button>
+
+                                        <button className={styles.botaoExcluir}>
+                                            Excluir
+                                        </button>
+                                    </td>
+
+                                </tr>
+                            ))) : (
+                                <tr>
+                                    <td colSpan="6">Nenhuma nota encontrada.</td>
+                                </tr>
+                            )}
+                        </tbody>
+
+                    </table>
+
+                </section>
+
             </main>
         </>
     );

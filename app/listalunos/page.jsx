@@ -20,9 +20,10 @@ export default function ListAluno() {
         setAlunos(dados);
     }
 
-    function editarAluno(id){
-        router.push(`/editalunos/${id}`);
+    function editarAlunos(id){
+        router.push(`/editalunos/${id}`)
     }
+
     async function excluiraAluno(event){
         event.preventDefault();
         if(!confirm('Deseja realmente excluir este aluno?'))return;
@@ -80,7 +81,7 @@ export default function ListAluno() {
                                     <td>{aluno.ra}</td>
 
                                     <td>
-                                        <button className={styles.botaoEditar} onClick={(e) => editarAluno(aluno.id_aluno)}>
+                                        <button className={styles.botaoEditar} onClick={() => editarAlunos(aluno.id_aluno)}>
                                             Editar
                                         </button>
 

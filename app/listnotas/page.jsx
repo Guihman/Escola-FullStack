@@ -57,15 +57,15 @@ export default function ListNotas() {
                                     <td>{nota.nota2}</td>
                                     <td>{nota.nota3}</td>
 
-                                    <td>
-                                        <button className={styles.botaoEditar}>
-                                            Editar
-                                        </button>
+                                        <td className={styles.colAcoes}>
+                                            <button className={styles.btnEditar}>
+                                                Editar
+                                            </button>
 
-                                        <button className={styles.botaoExcluir}>
-                                            Excluir
-                                        </button>
-                                    </td>
+                                            <button className={styles.btnDeletar}>
+                                                Excluir
+                                            </button>
+                                        </td>
 
                                 </tr>
                             ))) : (

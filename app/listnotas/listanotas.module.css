@@ -77,12 +77,14 @@
     text-align: left !important;
 }
 
+/* Botões de ação */
 .colAcoes {
     text-align: center;
+    white-space: nowrap;
 }
 
-/* Botões de Ação */
-.btnEditar, .btnDeletar {
+.btnEditar,
+.btnDeletar {
     padding: 8px 14px;
     border: none;
     border-radius: 6px;
@@ -92,6 +94,7 @@
     transition: all 0.2s ease;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    margin: 4px;
 }
 
 .btnEditar {

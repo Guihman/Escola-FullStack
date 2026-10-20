@@ -1,44 +1,18 @@
 import db from "../../db/banco";
 import { NextResponse } from "next/server";
 
-export async function GET() {
-    try {
-        const notas = db.prepare(`
-            SELECT 
-                notas.id_nota,
-                alunos.nome,
-                alunos.ra,
-                notas.t1,
-                notas.t2,
-                notas.n1,
-                notas.n2,
-                notas.n3
-            FROM notas
-            INNER JOIN alunos ON notas.aluno_id = alunos.id_aluno
-            ORDER BY alunos.nome
-        `).all();
-
-        return NextResponse.json(notas);
-
-    } catch (error) {
-        console.error("Erro ao buscar notas ", error);
-        return NextResponse.json(
-            { erro: "Erro ao buscar notas" },
-            { status: 500 }
-        );
-    }
+export async function GET(){
+    const notas = db.prepare(`SELECT alunos.nome, alunos.ra, notas.t1, notas.t2, notas.n1, notas.n2, notas.n3  FROM notas
+    INNER JOIN alunos
+    ON notas.aluno_id = alunos.id_aluno
+    ORDER BY alunos.nome`)
+    return NextResponse.json(notas)
 }
 
-export async function POST(request) {
+export async function POST(request){
     try {
-        const dados = await request.json();
-
-        const sql = db.prepare(`
-            INSERT INTO notas 
-            (aluno_id, t1, t2, n1, n2, n3) 
-            VALUES (?, ?, ?, ?, ?, ?)
-        `);
-
+        const dados =  await request.json();
+        const sql = db.prepare(`INSERT INTO notas (aluno_id, t1, t2, n1, n2, n3) VALUES (?,?,?,?,?,?)`)
         sql.run(
             dados.aluno_id,
             dados.t1,
@@ -46,83 +20,44 @@ export async function POST(request) {
             dados.n1,
             dados.n2,
             dados.n3
-        );
-
+        )
         return NextResponse.json({
-            mensagem: "Nota salva com sucesso!"
+            mensagem: 'Nota salva com sucesso!'
         });
-
     } catch (error) {
-        console.error("Erro ao salvar ", error);
-
-        return NextResponse.json(
-            { erro: "Erro ao salvar nota" },
-            { status: 500 }
-        );
+        console.error('Erro ao salvar ', error)
     }
 }
+
 
 export async function PUT(request) {
     try {
         const dados = await request.json();
-
         const sql = db.prepare(`
-            UPDATE notas
-            SET 
-                aluno_id = ?,
-                t1 = ?,
-                t2 = ?,
-                n1 = ?,
-                n2 = ?,
-                n3 = ?
-            WHERE id_nota = ?
+            UPDATE alunos
+            SET nome = ?, idade = ?, serie = ?, ra = ?
+            WHERE id_aluno = ?
         `);
-
-        sql.run(
-            dados.aluno_id,
-            dados.t1,
-            dados.t2,
-            dados.n1,
-            dados.n2,
-            dados.n3,
-            dados.id_nota
-        );
-
+        sql.run(dados.nome, dados.idade, dados.serie, dados.ra, dados.id_aluno);
         return NextResponse.json({
-            mensagem: "Nota atualizada com sucesso!"
+            message: "Aluno atualizado com sucesso!"
         });
-
     } catch (error) {
-        console.error("Erro ao editar nota ", error);
-
-        return NextResponse.json(
-            { erro: "Erro ao editar nota" },
-            { status: 500 }
-        );
-    }
+        console.error('Erro ao editar o aluno ', error);
+        return NextResponse.json({ message: "Erro ao editar o aluno." }, { status: 500 });
+    };
 }
 
 export async function DELETE(request) {
     try {
         const dados = await request.json();
-
-        const sql = db.prepare(`
-            DELETE FROM notas 
-            WHERE id_nota = ?
-        `);
-
-        sql.run(dados.id_nota);
-
+        const sql = db.prepare(`DELETE FROM alunos WHERE id_aluno = ?`);
+        sql.run(dados.id_aluno);
         return NextResponse.json({
-            mensagem: "Nota excluída com sucesso!"
+            message: "Aluno excluído com sucesso!"
         });
-
     } catch (error) {
-        console.error("Erro ao excluir nota ", error);
-
-        return NextResponse.json(
-            { erro: "Erro ao excluir nota" },
-            { status: 500 }
-        );
-    }
+        console.error('Erro ao excluir o aluno ', error);
+        return NextResponse.json({ message: "Erro ao excluir o aluno." }, { status: 500 });
+    };
 }

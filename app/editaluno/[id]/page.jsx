@@ -13,6 +13,7 @@ export default function EditarAlunoPage({ params: paramsPromise }) {
     const resolvedParams = paramsPromise ? use(paramsPromise) : null;
     const id = resolvedParams?.id || routeParams?.id || searchParams?.get("id");
 
+    const [id_aluno, setIdAluno] = useState("")
     const [nome, setNome] = useState("");
     const [idade, setIdade] = useState("");
     const [serie, setSerie] = useState("");
@@ -39,6 +40,7 @@ export default function EditarAlunoPage({ params: paramsPromise }) {
             }
 
             const dados = await resposta.json();
+            setIdAluno(dados.id_aluno || "");
             setNome(dados.nome || "");
             setIdade(dados.idade || "");
             setSerie(dados.serie || "");
@@ -65,7 +67,7 @@ export default function EditarAlunoPage({ params: paramsPromise }) {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                id,
+                id_aluno,
                 nome,
                 idade,
                 serie,
@@ -96,6 +98,7 @@ export default function EditarAlunoPage({ params: paramsPromise }) {
             <h1>Editar Aluno</h1>
 
             <form onSubmit={salvarAluno} className="formulario">
+                <input type="text" value={id_aluno} onChange={(event) => setIdAluno(event.target.value)} hidden/>
                 <label>Nome</label>
                 <input
                     value={nome}

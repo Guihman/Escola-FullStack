@@ -1,7 +1,10 @@
+
 "use client";
 
 import { useEffect, useState, use } from "react";
 import { useRouter, useParams, useSearchParams } from "next/navigation";
+import Header from "../../components/header";
+import styles from "./editaluno.module.css";
 import Link from "next/link";
 
 export default function EditarAlunoPage({ params: paramsPromise }) {
@@ -9,16 +12,22 @@ export default function EditarAlunoPage({ params: paramsPromise }) {
     const routeParams = useParams();
     const searchParams = useSearchParams();
 
-    // Tenta obter o ID a partir da rota [id] ou de query params (?id=1)
-    const resolvedParams = paramsPromise ? use(paramsPromise) : null;
-    const id = resolvedParams?.id || routeParams?.id || searchParams?.get("id");
+    const resolvedParams = paramsPromise
+        ? use(paramsPromise)
+        : null;
 
-    const [id_aluno, setIdAluno] = useState("")
+    const id =
+        resolvedParams?.id ||
+        routeParams?.id ||
+        searchParams?.get("id");
+
+    const [id_aluno, setIdAluno] = useState("");
     const [nome, setNome] = useState("");
     const [idade, setIdade] = useState("");
     const [serie, setSerie] = useState("");
     const [ra, setRa] = useState("");
     const [carregando, setCarregando] = useState(true);
+    const [salvando, setSalvando] = useState(false);
 
     useEffect(() => {
         if (id) {
@@ -31,6 +40,7 @@ export default function EditarAlunoPage({ params: paramsPromise }) {
     async function buscarAluno(idAluno) {
         try {
             setCarregando(true);
+
             const resposta = await fetch(`/api/alunos/${idAluno}`);
 
             if (!resposta.ok) {
@@ -40,9 +50,10 @@ export default function EditarAlunoPage({ params: paramsPromise }) {
             }
 
             const dados = await resposta.json();
+
             setIdAluno(dados.id_aluno || "");
             setNome(dados.nome || "");
-            setIdade(dados.idade || "");
+            setIdade(dados.idade ?? "");
             setSerie(dados.serie || "");
             setRa(dados.ra || "");
         } catch (erro) {
@@ -61,78 +72,152 @@ export default function EditarAlunoPage({ params: paramsPromise }) {
             return;
         }
 
-        const resposta = await fetch("/api/alunos", {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                id_aluno,
-                nome,
-                idade,
-                serie,
-                ra,
-            }),
-        });
+        try {
+            setSalvando(true);
 
-        const dados = await resposta.json();
+            const resposta = await fetch("/api/alunos", {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    id_aluno,
+                    nome,
+                    idade,
+                    serie,
+                    ra,
+                }),
+            });
 
-        alert(dados.mensagem || dados.erro);
+            const dados = await resposta.json();
 
-        if (resposta.ok) {
+            if (!resposta.ok) {
+                alert(dados.erro || "Não foi possível atualizar o aluno.");
+                return;
+            }
+
+            alert(dados.mensagem || "Aluno atualizado com sucesso!");
             router.push("/listalunos");
+        } catch (erro) {
+            console.error("Erro ao salvar aluno:", erro);
+            alert("Erro ao salvar as alterações.");
+        } finally {
+            setSalvando(false);
         }
     }
 
-    if (carregando) {
-        return (
-            <main className="container">
-                <h1>Editar Aluno</h1>
-                <p>Carregando informações do aluno...</p>
-            </main>
-        );
-    }
-
     return (
-        <main className="container">
-            <h1>Editar Aluno</h1>
+        <>
+            <Header />
 
-            <form onSubmit={salvarAluno} className="formulario">
-                <input type="text" value={id_aluno} onChange={(event) => setIdAluno(event.target.value)} hidden/>
-                <label>Nome</label>
-                <input
-                    value={nome}
-                    onChange={(event) => setNome(event.target.value)}
-                    required
-                />
+            <main className={styles.main}>
+                <div className={styles.container}>
+                    <section className={styles.painel}>
+                        <p className={styles.status}>GESTÃO ESCOLAR</p>
 
-                <label>Idade</label>
-                <input
-                    type="number"
-                    value={idade}
-                    onChange={(event) => setIdade(event.target.value)}
-                    required
-                />
+                        <h1>Editar Aluno</h1>
 
-                <label>Série</label>
-                <input
-                    value={serie}
-                    onChange={(event) => setSerie(event.target.value)}
-                    placeholder="Ex.: 3º A"
-                    required
-                />
+                        <p className={styles.descricao}>
+                            Atualize as informações cadastrais do aluno.
+                        </p>
 
-                <label>RA</label>
-                <input
-                    value={ra}
-                    onChange={(event) => setRa(event.target.value)}
-                    required
-                />
+                        {carregando ? (
+                            <p className={styles.mensagem}>
+                                Carregando informações do aluno...
+                            </p>
+                        ) : (
+                            <>
+                                {!id && (
+                                    <p className={styles.erro}>
+                                        ID do aluno não encontrado.
+                                    </p>
+                                )}
 
-                <button type="submit">Salvar Alterações</button>
-            </form>
+                                <form
+                                    onSubmit={salvarAluno}
+                                    className={styles.formulario}
+                                >
+                                    <input
+                                        type="hidden"
+                                        value={id_aluno}
+                                        readOnly
+                                    />
 
-            <Link href="/listalunos">Voltar</Link>
-        </main>
+                                    <div className={styles.campo}>
+                                        <label htmlFor="nome">Nome completo</label>
+                                        <input
+                                            id="nome"
+                                            type="text"
+                                            value={nome}
+                                            onChange={(e) => setNome(e.target.value)}
+                                            placeholder="Digite o nome do aluno"
+                                            required
+                                        />
+                                    </div>
+
+                                    <div className={styles.linha}>
+                                        <div className={styles.campo}>
+                                            <label htmlFor="idade">Idade</label>
+                                            <input
+                                                id="idade"
+                                                type="number"
+                                                min="1"
+                                                value={idade}
+                                                onChange={(e) => setIdade(e.target.value)}
+                                                placeholder="Ex.: 16"
+                                                required
+                                            />
+                                        </div>
+
+                                        <div className={styles.campo}>
+                                            <label htmlFor="serie">Série / Turma</label>
+                                            <input
+                                                id="serie"
+                                                type="text"
+                                                value={serie}
+                                                onChange={(e) => setSerie(e.target.value)}
+                                                placeholder="Ex.: 3º A"
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <div className={styles.campo}>
+                                        <label htmlFor="ra">Registro do Aluno (RA)</label>
+                                        <input
+                                            id="ra"
+                                            type="text"
+                                            value={ra}
+                                            onChange={(e) => setRa(e.target.value)}
+                                            placeholder="Digite o RA do aluno"
+                                            required
+                                        />
+                                    </div>
+
+                                    <div className={styles.acoes}>
+                                        <Link
+                                            href="/listalunos"
+                                            className={styles.btnVoltar}
+                                        >
+                                            Voltar
+                                        </Link>
+
+                                        <button
+                                            type="submit"
+                                            className={styles.btnSalvar}
+                                            disabled={salvando || !id}
+                                        >
+                                            {salvando
+                                                ? "Salvando..."
+                                                : "Salvar alterações"}
+                                        </button>
+                                    </div>
+                                </form>
+                            </>
+                        )}
+                    </section>
+                </div>
+            </main>
+        </>
     );
 }

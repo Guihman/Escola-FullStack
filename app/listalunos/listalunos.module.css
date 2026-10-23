@@ -18,6 +18,40 @@
     box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
 }
 
+.btnEditar,
+.btnDeletar {
+    padding: 8px 14px;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 4px;
+}
+
+.btnEditar {
+    background-color: #2B2B2B;
+    color: #ffffff;
+}
+
+.btnEditar:hover {
+    background-color: #404040;
+    transform: translateY(-1px);
+}
+
+.btnDeletar {
+    background-color: #E30613;
+    color: #ffffff;
+}
+
+.btnDeletar:hover {
+    background-color: #A80916;
+    transform: translateY(-1px);
+}
+
 .status {
     text-align: center;
     color: #E30613;

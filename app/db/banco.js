@@ -24,6 +24,21 @@ db.exec(`
         REFERENCES alunos(id_aluno)
         ON DELETE CASCADE
     );
+    CREATE TABLE IF NOT EXISTS disciplinas (
+        id_disciplina INTEGER PRIMARY KEY AUTOINCREMENT,
+        nome TEXT NOT NULL UNIQUE,
+        pontuacao_minima REAL NOT NULL
+    );
+    CREATE TABLE IF NOT EXISTS professores (
+        id_professor INTEGER PRIMARY KEY AUTOINCREMENT,
+        nome TEXT NOT NULL,
+        nif TEXT NOT NULL UNIQUE,
+        dias_aula TEXT NOT NULL,
+        disciplina_id INTEGER NOT NULL,
+        total_aulas INTEGER NOT NULL,
+        FOREIGN KEY (disciplina_id)
+        REFERENCES disciplinas(id_disciplina)
+    );
     `)
 
     console.log('Banco criado com sucesso!');

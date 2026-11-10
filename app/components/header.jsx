@@ -13,6 +13,10 @@ export default function Header() {
                         <li><Link href='/listalunos'>Lista - Alunos</Link></li>
                         <li><Link href='/cadnotas'>Cadastro - Notas</Link></li>
                         <li><Link href='/listnotas'>Lista - Notas</Link></li>
+                        <li><Link href='/caddisciplinas'>Cadastro - Disciplinas</Link></li>
+                        <li><Link href='/listdisciplinas'>Lista - Disciplinas</Link></li>
+                        <li><Link href='/cadprofessores'>Cadastro - Professores</Link></li>
+                        <li><Link href='/listprofessores'>Lista - Professores</Link></li>
                     </ul>
                 </nav>
             </header>
